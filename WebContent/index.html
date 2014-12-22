@@ -15,8 +15,10 @@
 		<script>
 				sap.ui.localResources("demo");
 				
+				jQuery.sap.require("sap.ui.core.routing.Router");
+				jQuery.sap.require("sap.ui.core.routing.HashChanger");
 				
-				var oShell = sap.ui.ux3.Shell({
+				var oShell = sap.ui.ux3.Shell("shellId",{
 					appTitle: "Demo",
 					showLogoutButton: false,
 					showSearchTool: false,
@@ -34,20 +36,9 @@
 						this.removeAllContent();
 						
 						var selected = e.getParameter("key");
-						var view = sap.ui.getCore().byId(selected);
 						
-						if(view == undefined) {
-							console.log("New View rendering")
-							view = new sap.ui.view({
-								id: selected,
-								viewName: "demo." + selected,
-								type: sap.ui.core.mvc.ViewType.JS
-							})
-						}else{
-							console.log("Old view");
-						}
-						
-						this.addContent(view);
+						var oHashChanger = new sap.ui.core.routing.HashChanger();
+						oHashChanger.setHash(router.getURL(selected));
 						
 					},
 					content: [new sap.ui.view({
@@ -59,6 +50,38 @@
 				});
 				
 				oShell.placeAt('container');
+				
+				var router = new sap.ui.core.routing.Router([
+				   {
+					   pattern: "",
+					   name: "Page1",
+					   view: "demo.Page1",
+					   viewType: sap.ui.core.mvc.ViewType.JS,
+					   targetControl: "shellId",
+					   targetAggregation: "content", //content/Page
+					   clearTarget: true,
+					   callback: function() {
+						   oShell.setSelectedWorksetItem("page1Id");
+					   }
+				   },
+				   {
+					   pattern: ["Profile", "Page2"],
+					   name: "Page2",
+					   view: "demo.Page2",
+					   viewType: sap.ui.core.mvc.ViewType.JS,
+					   targetControl: "shellId",
+					   targetAggregation: "content", //content/Page
+					   clearTarget: true,
+					   callback: function() {
+						   oShell.setSelectedWorksetItem("page2Id");
+					   }
+				   } 
+				                                             
+				                                             
+				]); 
+				
+				router.register("appRouter");
+				router.initialize();
 				
 		</script>
 
