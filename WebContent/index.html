@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+		
+
+		<script src="resources/sap-ui-core.js"
+				id="sap-ui-bootstrap"
+				data-sap-ui-libs="sap.ui.commons,sap.ui.ux3"
+				data-sap-ui-theme="sap_bluecrystal">
+		</script>
+		<!-- add sap.ui.table,sap.ui.ux3 and/or other libraries to 'data-sap-ui-libs' if required -->
+
+		<script>
+				sap.ui.localResources("demo");
+				
+				
+				var oShell = sap.ui.ux3.Shell({
+					appTitle: "Demo",
+					showLogoutButton: false,
+					showSearchTool: false,
+					worksetItems: [
+					            new sap.ui.ux3.NavigationItem("page1Id",{
+					            	key: "Page1",
+					            	text: "Page1"
+					            }),
+					            new sap.ui.ux3.NavigationItem("page2Id", {
+					            	key: "Page2",
+					            	text: "Page2"
+					            })
+					],
+					worksetItemSelected: function(e) {
+						this.removeAllContent();
+						
+						var selected = e.getParameter("key");
+						var view = sap.ui.getCore().byId(selected);
+						
+						if(view == undefined) {
+							console.log("New View rendering")
+							view = new sap.ui.view({
+								id: selected,
+								viewName: "demo." + selected,
+								type: sap.ui.core.mvc.ViewType.JS
+							})
+						}else{
+							console.log("Old view");
+						}
+						
+						this.addContent(view);
+						
+					},
+					content: [new sap.ui.view({
+						id: "view1Id",
+						viewName: "demo.Page1",
+						type: sap.ui.core.mvc.ViewType.JS
+					})]
+					
+				});
+				
+				oShell.placeAt('container');
+				
+		</script>
+
+	</head>
+	<body class="sapUiBody" role="application">
+		<div id="container"></div>
+	</body>
+</html>
