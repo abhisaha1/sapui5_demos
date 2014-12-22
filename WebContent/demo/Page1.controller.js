@@ -5,9 +5,9 @@ sap.ui.controller("demo.Page1", {
 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
 * @memberOf demo.Page1
 */
-//	onInit: function() {
-//
-//	},
+	onInit: function() {
+		this.myModel = new sap.ui.model.json.JSONModel();
+	},
 
 /**
 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
@@ -34,5 +34,23 @@ sap.ui.controller("demo.Page1", {
 //	onExit: function() {
 //
 //	}
+	
+	navigateToPage2: function(view) {
+		
+		var json = {};
+		json.mySecret = sap.ui.getCore().byId(this.createId("secretId")).getValue();
+		
+		this.myModel.setData(json);
+		
+		sap.ui.getCore().setModel(this.myModel);
+		
+		var oRouter = sap.ui.core.routing.Router.getRouter("appRouter");
+		
+		oHashChanger = sap.ui.core.routing.HashChanger.getInstance();
+		
+		oHashChanger.setHash(oRouter.getURL(view));
+		
+		
+	}
 
 });

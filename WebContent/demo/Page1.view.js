@@ -15,10 +15,23 @@ sap.ui.jsview("demo.Page1", {
 	createContent : function(oController) {
 		
 		var oText = new sap.ui.commons.TextView({
-			text: "This is Page1"
+			text: "Enter secret word: "
 		})
 		
-		return oText;
+		var oInput = new sap.ui.commons.TextField(this.createId("secretId"),{
+			value: "magic"
+		});
+		
+		var oButton = new sap.ui.commons.Button({
+			text: "submit",
+			press: function() {
+				oController.navigateToPage2("Page2");
+			}
+		});
+		
+		var ele = [oText, oInput, oButton];
+		
+		return ele;
 		
 	}
 

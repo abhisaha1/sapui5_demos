@@ -13,8 +13,9 @@ sap.ui.jsview("demo.Page2", {
 	* @memberOf demo.Page2
 	*/ 
 	createContent : function(oController) {
+		
 		var oText = new sap.ui.commons.TextView({
-			text: "This is Page2"
+			text: "{/mySecret}"
 		})
 		
 		return oText;
