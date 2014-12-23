@@ -19,8 +19,9 @@ sap.ui.jsview("demo.Page1", {
 		})
 		
 		var oInput = new sap.ui.commons.TextField(this.createId("secretId"),{
-			value: "magic"
+			value: "{/mySecret}"
 		});
+		
 		
 		var oButton = new sap.ui.commons.Button({
 			text: "submit",

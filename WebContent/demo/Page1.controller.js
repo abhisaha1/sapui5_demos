@@ -6,7 +6,15 @@ sap.ui.controller("demo.Page1", {
 * @memberOf demo.Page1
 */
 	onInit: function() {
-		this.myModel = new sap.ui.model.json.JSONModel();
+		myModel = new sap.ui.model.json.JSONModel();
+		var json = {};
+		json.mySecret = sap.ui.getCore().byId(this.createId("secretId")).getValue();
+		
+		myModel.setData(json);
+		
+		myModel.setDefaultBindingMode(sap.ui.model.BindingMode.OneWay);
+		
+		sap.ui.getCore().setModel(myModel);
 	},
 
 /**
@@ -37,12 +45,7 @@ sap.ui.controller("demo.Page1", {
 	
 	navigateToPage2: function(view) {
 		
-		var json = {};
-		json.mySecret = sap.ui.getCore().byId(this.createId("secretId")).getValue();
 		
-		this.myModel.setData(json);
-		
-		sap.ui.getCore().setModel(this.myModel);
 		
 		var oRouter = sap.ui.core.routing.Router.getRouter("appRouter");
 		
