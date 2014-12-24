@@ -14,25 +14,40 @@ sap.ui.jsview("demo.Page1", {
 	*/ 
 	createContent : function(oController) {
 		
-		var oText = new sap.ui.commons.TextView({
-			text: "Enter secret word: "
-		})
-		
-		var oInput = new sap.ui.commons.TextField(this.createId("secretId"),{
-			value: "{/mySecret}"
+		var oTable = new sap.ui.table.Table({
+			tableId: "mytable",
+			visibleRowCount: 5,
+			editable: false
 		});
 		
 		
-		var oButton = new sap.ui.commons.Button({
-			text: "submit",
-			press: function() {
-				oController.navigateToPage2("Page2");
-			}
-		});
+		var oControl = new sap.ui.commons.TextView({text:"{ContactName}"})
 		
-		var ele = [oText, oInput, oButton];
+		oTable.addColumn(new sap.ui.table.Column({
+			
+			label: new sap.ui.commons.Label({text: "Contact Name"}),
+			visible: true,
+			template: oControl
+			
+			
+		}));
 		
-		return ele;
+		
+		var oControl = new sap.ui.commons.TextView({text:"{ContactTitle}"})
+		
+		oTable.addColumn(new sap.ui.table.Column({
+			
+			label: new sap.ui.commons.Label({text: "Contact Title"}),
+			visible: true,
+			template: oControl
+			
+			
+		}));
+		
+		oTable.bindRows("/value");
+		
+		return oTable;
+		
 		
 	}
 

@@ -6,15 +6,20 @@ sap.ui.controller("demo.Page1", {
 * @memberOf demo.Page1
 */
 	onInit: function() {
-		myModel = new sap.ui.model.json.JSONModel();
-		var json = {};
-		json.mySecret = sap.ui.getCore().byId(this.createId("secretId")).getValue();
 		
-		myModel.setData(json);
+		var oModel = new sap.ui.model.json.JSONModel();
 		
-		myModel.setDefaultBindingMode(sap.ui.model.BindingMode.OneWay);
+		$.ajax({
+			url:"http://services.odata.org/V3/Northwind/Northwind.svc/Customers?$format=json",
+			dataType: 'json',
+			success: function(response) {
+				var data = response;
+				oModel.setData(data);
+				
+			}
+		})
 		
-		sap.ui.getCore().setModel(myModel);
+		sap.ui.getCore().setModel(oModel);
 	},
 
 /**
