@@ -21,7 +21,7 @@ sap.ui.jsview("demo.Page1", {
 		});
 		
 		
-		var oControl = new sap.ui.commons.TextView({text:"{ContactName}"})
+		var oControl = new sap.ui.commons.TextView({text:"{northwind>ContactName}"})
 		
 		oTable.addColumn(new sap.ui.table.Column({
 			
@@ -32,21 +32,60 @@ sap.ui.jsview("demo.Page1", {
 			
 		}));
 		
-		
-		var oControl = new sap.ui.commons.TextView({text:"{ContactTitle}"})
+		var oControl = new sap.ui.commons.TextView({text:"{northwind>ContactTitle}"})
 		
 		oTable.addColumn(new sap.ui.table.Column({
 			
-			label: new sap.ui.commons.Label({text: "Contact Title"}),
+			label: new sap.ui.commons.Label({text: "Contact ContactTitle"}),
 			visible: true,
 			template: oControl
 			
 			
 		}));
 		
-		oTable.bindRows("/value");
 		
-		return oTable;
+		
+		oTable.bindRows("northwind>/value");
+		
+		
+		//ajaxtown data
+		
+		var oTable1 = new sap.ui.table.Table({
+			tableId: "mytable",
+			visibleRowCount: 5,
+			editable: false
+		});
+		
+		
+		var oControl = new sap.ui.commons.TextView({text:"{ajaxtown>firstName}"})
+		
+		oTable1.addColumn(new sap.ui.table.Column({
+			
+			label: new sap.ui.commons.Label({text: "First Name"}),
+			visible: true,
+			template: oControl
+			
+			
+		}));
+		
+		var oControl = new sap.ui.commons.TextView({text:"{ajaxtown>lastName}"})
+		
+		oTable1.addColumn(new sap.ui.table.Column({
+			
+			label: new sap.ui.commons.Label({text: "Last Name"}),
+			visible: true,
+			template: oControl
+			
+			
+		}));
+		
+		
+		
+		oTable1.bindRows("ajaxtown>/");
+		
+		var ele = [oTable, oTable1];
+		
+		return ele;
 		
 		
 	}

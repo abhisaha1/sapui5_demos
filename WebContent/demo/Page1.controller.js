@@ -7,19 +7,16 @@ sap.ui.controller("demo.Page1", {
 */
 	onInit: function() {
 		
-		var oModel = new sap.ui.model.json.JSONModel();
+		var oModel = new sap.ui.model.json.JSONModel("http://services.odata.org/V3/Northwind/Northwind.svc/Customers?$format=json");
 		
-		$.ajax({
-			url:"http://services.odata.org/V3/Northwind/Northwind.svc/Customers?$format=json",
-			dataType: 'json',
-			success: function(response) {
-				var data = response;
-				oModel.setData(data);
-				
-			}
-		})
+		sap.ui.getCore().setModel(oModel,"northwind");
 		
-		sap.ui.getCore().setModel(oModel);
+		
+		
+		
+		var oModel1 = new sap.ui.model.json.JSONModel("http://ajaxtown.com/playground/data.php");
+		
+		sap.ui.getCore().setModel(oModel1,"ajaxtown");
 	},
 
 /**
