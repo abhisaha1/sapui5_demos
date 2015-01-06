@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+		<script src="resources/sap-ui-core.js"
+				id="sap-ui-bootstrap"
+				data-sap-ui-libs="sap.m,sap.ui.commons"
+				data-sap-ui-theme="sap_bluecrystal">
+		</script>
+		<!-- only load the mobile lib "sap.m" and the "sap_bluecrystal" theme -->
+		
+		<style type="text/css">
+			#matrixId {
+				margin: auto
+			}
+		</style>
+		
+		<script>
+				sap.ui.localResources("splitappdemo");
+				
+				var oSplitApp = new sap.m.SplitApp("appId",{});
+				
+				var oIntroPage = sap.ui.view({
+					id: "introId",
+					viewName: "splitappdemo.Intro",
+					type: sap.ui.core.mvc.ViewType.JS
+				})
+				
+				var oDetailsPage = sap.ui.view({
+					id: "detailsId",
+					viewName: "splitappdemo.Details",
+					type: sap.ui.core.mvc.ViewType.JS
+				})
+				
+				var oMasterPage = sap.ui.view({
+					id: "masterId",
+					viewName: "splitappdemo.Master",
+					type: sap.ui.core.mvc.ViewType.JS
+				});
+				
+				
+				oSplitApp.addDetailPage(oIntroPage).addDetailPage(oDetailsPage);
+				
+				oSplitApp.addMasterPage(oMasterPage);
+				
+				oSplitApp.setInitialDetail("introId");
+				oSplitApp.setInitialMaster("masterId");
+				
+				oSplitApp.placeAt("content");
+				
+				oSplitApp.setDefaultTrasitionNameDetail("slide");
+				oSplitApp.setMode("ShowHideMode");//StretchCompressMode,ShowHideMode,PopoverMode,HideMode
+				
+				
+		</script>
+
+	</head>
+	<body class="sapUiBody" role="application">
+		<div id="content"></div>
+	</body>
+</html>
